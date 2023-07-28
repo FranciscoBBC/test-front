@@ -1,31 +1,16 @@
 import styled, { css } from 'styled-components'
 
-export const FormWrapper = styled.div`
-  ${({ theme }) => css`
-    display: grid;
-    grid-gap: ${theme.spacings.medium};
-    grid-template-columns: 1fr 1fr;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100%;
-  `}
-`
-
 export const Form = styled.form`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 20px;
-
-  @media screen and (min-width: 768px) {
+  ${({ theme }) => css`
+    justify-content: center;
+    grid-gap: ${theme.spacings.medium};
     display: grid;
     width: 100%;
     grid-column-end: 3;
     grid-column-start: 1;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1fr;
     align-items: flex-start;
-  }
+  `}
 `
 
 const inputWrapper = css`

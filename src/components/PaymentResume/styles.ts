@@ -1,13 +1,8 @@
 import styled, { css } from 'styled-components'
 import { paymentResumeProps } from '.'
 
-type wrapperProps = Pick<paymentResumeProps, 'rowStart'>
-
-export const ContentWrap =
-  styled.div <
-  wrapperProps >
-  `
-  ${({ theme, rowStart }) => css`
+export const ContentWrap = styled.div`
+  ${({ theme }) => css`
     background: ${theme.colors.white};
     width: 100%;
     display: flex;
@@ -19,7 +14,7 @@ export const ContentWrap =
     @media screen and (min-width: 768px) {
       grid-column-start: 1;
       grid-column-end: 2;
-      grid-row-start: ${rowStart ? rowStart : '2'};
+      grid-row-start: 2;
     }
   `}
 `

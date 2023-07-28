@@ -13,7 +13,6 @@ export type paymentResumeProps = {
   subTotal: number,
   buttonLable: string,
   buttonColor?: keyof typeof theme.colors,
-  rowStart?: number,
   onClick?: () => void
 }
 
@@ -25,11 +24,10 @@ const PaymentResume = ({
   total,
   buttonLable,
   buttonColor,
-  rowStart,
   onClick
 }: paymentResumeProps) => {
   return (
-    <ContentWrap rowStart={rowStart}>
+    <ContentWrap>
       <ResumeWrapper>
         <Text
           color="black"

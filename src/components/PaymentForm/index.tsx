@@ -1,12 +1,11 @@
-import React, { ReactNode } from 'react'
-import { Form, FormWrapper, Input, InputFullWidth, InputHalfWidth } from './styles'
+import React, { forwardRef } from 'react'
+import { Form, Input, InputFullWidth, InputHalfWidth } from './styles'
 import Text from '../Text'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useMask from '../../utils/maskUtil'
 import useFormStore from '../../store/useFormStore'
-import MainContent from '../MainContent'
 
 const formSchema = z.object({
   cardNumber: z
@@ -21,35 +20,33 @@ const formSchema = z.object({
 export type FormProps = z.infer<typeof formSchema>
 
 type PaymentFormProps = {
-  onSubmit: (data: FormProps) => void,
-  children: ReactNode
+  onSubmit: (data: FormProps) => void
 }
 
-const PaymentForm = ({ onSubmit, children }: PaymentFormProps) => {
-  const formState = useFormStore((state) => state.form)
+const PaymentForm =
+  forwardRef<HTMLFormElement, PaymentFormProps>(({ onSubmit }, ref) => {
+    const formState = useFormStore((state) => state.form)
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm({
-    criteriaMode: 'all',
-    mode: 'all',
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      cardNumber: formState.cardNumber,
-      cardOwner: formState.cardOwner,
-      expirationDate: formState.expirationDate,
-      securityNumber: formState.securityNumber
-    }
-  })
-  const cardNumberMask = useMask('cardNumber')
-  const cardExpMask = useMask('cardExpDate')
+    const {
+      register,
+      handleSubmit,
+      formState: { errors }
+    } = useForm({
+      criteriaMode: 'all',
+      mode: 'all',
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+        cardNumber: formState.cardNumber,
+        cardOwner: formState.cardOwner,
+        expirationDate: formState.expirationDate,
+        securityNumber: formState.securityNumber
+      }
+    })
+    const cardNumberMask = useMask('cardNumber')
+    const cardExpMask = useMask('cardExpDate')
 
-  return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <MainContent title="Cartão de crédito">
-        <FormWrapper>
+    return (
+      <Form ref={ref} onSubmit={handleSubmit(onSubmit)}>
           <InputFullWidth>
             <label htmlFor="cardNumber">
               <Text fontSize="medium" color="black" fontWeight="normal">
@@ -135,11 +132,8 @@ const PaymentForm = ({ onSubmit, children }: PaymentFormProps) => {
               </Text>
             )}
           </InputHalfWidth>
-        </FormWrapper>
-      </MainContent>
-      {children}
-    </Form>
-  )
-}
+      </Form>
+    )
+  })
 
 export default PaymentForm
