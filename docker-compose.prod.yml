@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  beleza-na-web:
+    container_name: beleza-na-web-prod
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - 9000:9000

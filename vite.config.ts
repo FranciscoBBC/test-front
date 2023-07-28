@@ -13,6 +13,12 @@ export default defineConfig({
     setupFiles: ['./src/test/setup-test.ts']
   },
   server: {
+    host: true,
+    strictPort: true,
     port: 3000
+  },
+  preview: {
+    host: true,
+    port: 9000
   }
 })
